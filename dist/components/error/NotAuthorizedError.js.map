@@ -1,0 +1,1 @@
+{"version":3,"file":"NotAuthorizedError.js","sourceRoot":"","sources":["../../../src/components/error/NotAuthorizedError.ts"],"names":[],"mappings":";;AAAA,2DAAwD;AACxD,mDAAgD;AAEhD,MAAM,kBAAmB,SAAQ,qCAAiB;IAGhD;QACE,KAAK,CAAC,yBAAyB,CAAC,CAAC;QACjC,IAAI,CAAC,IAAI,GAAG,oBAAoB,CAAC;QACjC,IAAI,CAAC,QAAQ,GAAG,6BAAa,CAAC,oBAAoB,CAAC;IACrD,CAAC;CACF;AAEQ,gDAAkB"}
