@@ -4,27 +4,17 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class RecorderConfig extends Config {
   @IsNotEmpty()
   @IsString()
-  public recordsTemp!: string;
+  public recordTemp!: string;
 
   @IsNotEmpty()
   @IsString()
-  public recordsPath!: string;
+  public recordPath!: string;
 
-  public name: any;
-  
-  public url: any;
-  
-  public timeLimit!: number;
-  
-  public folder!: string;
-  
-  public type!: string;
-  
-  public directoryPathFormat!: string;
-  
-  public fileNameFormat!: string;
+  @IsNotEmpty()
+  @IsString()
+  public ffmpegPath!: string;
 
   public getName(): string {
-    return 'recorder';
+    return 'record';
   }
 }

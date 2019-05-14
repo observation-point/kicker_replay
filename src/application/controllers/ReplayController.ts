@@ -1,25 +1,54 @@
-import { JsonController, Get, Param } from 'routing-controllers';
+import { JsonController, Get, Post, Delete, BodyParam, Param, OnUndefined } from 'routing-controllers';
 import { di, ILogger } from '@framework';
 import { Type } from '@diType';
 
+// import { RecordSerivce } from 'inf/record/RecordService';
+// import { RecordRepository } from 'inf/record/RecordRepository';
+
 @JsonController('/api/replay')
-export class ProfileController {
+class RecordController {
   @di.inject(Type.AppLogger) private logger!: ILogger;
+  // @di.inject(Type.RecordService) private recordService: RecordSerivce;
+  // @di.inject(Type.RecordRepository) private recordRepository: RecordRepository;
 
-  @Get('/:goalId')
-  public async getGoalReplay(
-    @Param('goalId') goalId: string
-  ): Promise<any> {
-    this.logger.info('Get goal replay!');
-    this.logger.warn(goalId);
-    // const userId = request.user!.id;
-    // const photos = request.files;
+  @Post('/')
+  @OnUndefined(204)
+  public async startGameRecording(
+    @BodyParam('gameId') gameId: string
+  ): Promise<void> {
+    this.logger.info(`Record the game: ${gameId}`);
 
-    // const uploadVendorPhotoHandler = new UploadVendorPhotoUsecase(this.vendorRepository, this.imageService);
-    // const uploadVendorPhotoCmd = { userId, photos };
-    // const uploadResult = await uploadVendorPhotoHandler.handle(uploadVendorPhotoCmd);
-    // return this.view.renderVendorPhoto(uploadResult);
-    return { goalId, url: '234' };
+    // this.recordService.startRecording(gameId);
+    // this.recordRepository.save(gameId);
+  }
+
+  @Delete('/')
+  @OnUndefined(204)
+  public async stopGameRecording(): Promise<void> {
+    this.logger.info('Stop recordings');
+
+    // this.recordService.stopRecording();
+  }
+
+  @Post('/:gameId')
+  @OnUndefined(204)
+  public async saveGoalReplay(
+    @BodyParam('goalId') goalId: string
+  ): Promise<void> {
+    this.logger.info(`Record the goal: ${goalId}`);
+
+    // this.recordService.cutFragment(goalId);
+    // this.recordRepository
+  }
+
+  @Get('/:gameId')
+  public async getReplay(
+    @Param('goalId') _goalId: string
+  ): Promise<string> {
+
+    return '';
   }
 
 }
+
+export { RecordController };

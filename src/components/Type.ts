@@ -6,5 +6,8 @@ export const Type = {
   DbConfig: Symbol('DbConfig'),
 
   DbConnection: Symbol('DbConnection'),
-  ServiceDiscovery: Symbol('ServiceDiscovery')
+  // ServiceDiscovery: Symbol('ServiceDiscovery'),
+  RecordRepository: Symbol('RecordRepository'),
+  RecordService: Symbol('RecordService'),
+  MediaServer: Symbol('MediaServer'),
 };

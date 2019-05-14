@@ -1,15 +1,13 @@
 import { ILogger, di } from '@framework';
 
-import * as childProcess from 'child_process';
+import { spawn, ChildProcess } from 'child_process';
 import path from 'path';
 import { FileHandler } from './FileHandler';
-import { RecordsConfig } from '@config';
+import { RecorderConfig } from '@config';
 
 const fh = new FileHandler();
 
-export class RTSPRecorder {
-
-  public config: {};
+class Recorder {
   public name: any;
   public url: any;
   public timeLimit: any;
@@ -20,37 +18,19 @@ export class RTSPRecorder {
   public disableStreaming!: boolean;
   public timer: any;
   public writeStream: any;
+  public ffmpegPath: string;
 
   @di.inject(di.Type.AppLogger) private logger!: ILogger;
 
-  constructor(config: RecordsConfig) {
-    this.config = config;
-    this.name = config.name;
-    this.url = config.url;
-    this.timeLimit = config.timeLimit || 60;
-    this.folder = config.folder || 'media/';
-    this.categoryType = config.type || 'video';
-    this.directoryPathFormat = config.directoryPathFormat || 'MMM-Do-YY';
-    this.fileNameFormat = config.fileNameFormat || 'YYYY-M-D-h-mm-ss';
-    fh.createDirIfNotExists(this.getDirectoryPath());
-    fh.createDirIfNotExists(this.getTodayPath());
+  constructor(config: RecorderConfig) {
+    fh.createDirIfNotExists(config.recordTemp);
+    fh.createDirIfNotExists(config.recordPath);
+    this.ffmpegPath = config.ffmpegPath;
     this.writeStream.bind(this);
   }
 
   public getDirectoryPath() {
     return path.join(this.folder, (this.name ? this.name : ''));
-  }
-
-  public getTodayPath() {
-    return path.join(this.getDirectoryPath(), moment().format(this.directoryPathFormat));
-  }
-
-  public getMediaTypePath() {
-    return path.join(this.getTodayPath(), this.categoryType);
-  }
-
-  public getFilename(folderPath) {
-    return path.join(folderPath, moment().format(this.fileNameFormat) + this.getExtenstion());
   }
 
   public getExtenstion() {
@@ -74,14 +54,14 @@ export class RTSPRecorder {
     return ['-acodec', 'copy', '-vcodec', 'copy'];
   }
 
-  public getChildProcess(fileName) {
+  public getChildProcess(fileName: string): ChildProcess {
     const args = ['-i', this.url];
     const mediaArgs = this.getArguments();
     mediaArgs.forEach((item) => {
       args.push(item);
     });
     args.push(fileName);
-    return childProcess.spawn('ffmpeg', args, { detached: false, stdio: 'ignore' });
+    return spawn('ffmpeg', args, { detached: false, stdio: 'ignore' });
   }
 
   public stopRecording() {
@@ -101,19 +81,6 @@ export class RTSPRecorder {
       return true;
     }
     this.recordStream();
-  }
-
-  public captureImage(cb) {
-    this.writeStream = null;
-    const folderPath = this.getMediaTypePath();
-    fh.createDirIfNotExists(folderPath);
-    const fileName = this.getFilename(folderPath);
-    this.writeStream = this.getChildProcess(fileName);
-    this.writeStream.once('exit', () => {
-      if (cb) {
-        cb();
-      }
-    });
   }
 
   public killStream() {
@@ -143,19 +110,21 @@ export class RTSPRecorder {
     }
 
     this.writeStream = null;
-    const folderPath = this.getMediaTypePath();
-    fh.createDirIfNotExists(folderPath);
-    const fileName = this.getFilename(folderPath);
-    this.writeStream = this.getChildProcess(fileName);
+    // const folderPath = this.getMediaTypePath();
+    // fh.createDirIfNotExists(folderPath);
+    // const fileName = this.getFilename(folderPath);
+    // this.writeStream = this.getChildProcess(fileName);
 
-    this.writeStream.once('exit', () => {
-      if (self.disableStreaming) {
-        return true;
-      }
-      self.recordStream();
-    });
-    this.timer = setTimeout(self.killStream.bind(this), this.timeLimit * 1000);
+    // this.writeStream.once('exit', () => {
+    //   if (self.disableStreaming) {
+    //     return true;
+    //   }
+    //   self.recordStream();
+    // });
+    // this.timer = setTimeout(self.killStream.bind(this), this.timeLimit * 1000);
 
-    console.log('Start record ' + fileName);
+    // console.log('Start record ' + fileName);
   }
 }
+
+export { Recorder };

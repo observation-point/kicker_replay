@@ -7,10 +7,10 @@ import { getConfigFacotry } from '@framework';
 import { Type } from '../Type';
 import { DbConnectionFactory } from '../database/DbConnectionFactory';
 
-import { ImageRepository } from '../../inf/video/RecordRepository';
+// import { RecordRepository } from 'inf/record/RecordRepository';
 
 export const DbType = {
-  ImageRepository: Symbol('ImageRepository')
+  RecordRepository: Symbol('RecordRepository'),
 };
 
 export async function initDatabaseContainer(container: Container, options: { baseDir: string; }): Promise<void> {
@@ -22,7 +22,7 @@ export async function initDatabaseContainer(container: Container, options: { bas
       migrations: resolve(options.baseDir, 'inf/migrations/*.js'),
     }));
     
-  container.bind<ImageRepository>(DbType.ImageRepository)
-    .toConstantValue(new ImageRepository());
+  // container.bind<RecordRepository>(DbType.RecordRepository)
+  //   .toConstantValue(new RecordRepository());
 
 }
