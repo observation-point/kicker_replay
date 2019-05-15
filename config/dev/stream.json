@@ -1,0 +1,7 @@
+{
+  "ffmpegPath": "/usr/bin/ffmpeg",
+  "tempDir": "../temp",
+  "streamUrl": "http://demo.devline.ru/cameras/0/streaming/sub.flv?authorization=Basic%20d2ViOg==",
+  "rtspTransport": "http",
+  "checkStream": false
+}

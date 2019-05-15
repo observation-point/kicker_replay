@@ -1,0 +1,6 @@
+{
+  "tempDir": "/opt/kicker/stream_temp",
+  "recordsDir": "/opt/kicker/replays",
+  "baseUrl": "http://www130.lan",
+  "duration": 10
+}

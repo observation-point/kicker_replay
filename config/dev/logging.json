@@ -1,6 +1,6 @@
 {
   "application": {
-    "level": "info",
+    "level": "debug",
     "name": "application"
   },
   "access": {

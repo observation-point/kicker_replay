@@ -1,51 +1,35 @@
-import { JsonController, Get, Post, Delete, BodyParam, Param, OnUndefined } from 'routing-controllers';
+import { JsonController, Get, Post, BodyParam, Param, OnUndefined } from 'routing-controllers';
 import { di, ILogger } from '@framework';
 import { Type } from '@diType';
 
-// import { RecordSerivce } from 'inf/record/RecordService';
-// import { RecordRepository } from 'inf/record/RecordRepository';
+import { RecordService } from '../../inf/record/RecordService';
+
+// import { RecordRepository } from '../../inf/record/RecordRepository';
 
 @JsonController('/api/replay')
 class RecordController {
   @di.inject(Type.AppLogger) private logger!: ILogger;
-  // @di.inject(Type.RecordService) private recordService: RecordSerivce;
+  @di.inject(Type.RecordService) private recordService!: RecordService;
   // @di.inject(Type.RecordRepository) private recordRepository: RecordRepository;
 
   @Post('/')
   @OnUndefined(204)
-  public async startGameRecording(
-    @BodyParam('gameId') gameId: string
-  ): Promise<void> {
-    this.logger.info(`Record the game: ${gameId}`);
-
-    // this.recordService.startRecording(gameId);
-    // this.recordRepository.save(gameId);
-  }
-
-  @Delete('/')
-  @OnUndefined(204)
-  public async stopGameRecording(): Promise<void> {
-    this.logger.info('Stop recordings');
-
-    // this.recordService.stopRecording();
-  }
-
-  @Post('/:gameId')
-  @OnUndefined(204)
   public async saveGoalReplay(
+    @BodyParam('gameId') gameId: string,
     @BodyParam('goalId') goalId: string
-  ): Promise<void> {
-    this.logger.info(`Record the goal: ${goalId}`);
-
-    // this.recordService.cutFragment(goalId);
-    // this.recordRepository
+  ): Promise<string> {
+    this.logger.info(`Record the goal: ${gameId}/${goalId}`);
+    return await this.recordService.replay(gameId, goalId);
   }
 
-  @Get('/:gameId')
+  @Get('/:goalId')
   public async getReplay(
-    @Param('goalId') _goalId: string
+    @Param('goalId') goalId: string
   ): Promise<string> {
-
+    if (goalId === '1') {
+      this.logger.info(`Get the goal: ${goalId}`);
+    } else {
+    }
     return '';
   }
 

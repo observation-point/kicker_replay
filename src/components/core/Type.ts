@@ -6,6 +6,4 @@ export const Type = {
   AppLogger: Symbol('AppLogger'),
   AccessLogger: Symbol('AccessLogger'),
   DbLogger: Symbol('DbLogger'),
-
-  MediaServer: Symbol('MediaServer')
 };

@@ -4,8 +4,7 @@ import { Type } from './Type';
 
 import { ConfigFactory } from './config/lib';
 import { LoggerFactory, ILogger } from './log';
-import { LoggingConfig, ServerConfig, MediaServerConfig } from './config';
-import { MediaServer, nodeMediaServer } from './mediaServer/mediaServer';
+import { LoggingConfig, ServerConfig } from './config';
 
 /**
  * Init Logger, Configs, Db Connection
@@ -26,11 +25,6 @@ export const bindMainComponents = async(container: Container, options: { baseDir
   container.bind(Type.AccessLogger).toConstantValue(loggerFactory.create(loggingConfig.access));
   container.bind(Type.DbLogger).toConstantValue(loggerFactory.create(loggingConfig.db));
 
-  container
-    .bind<MediaServer>(Type.MediaServer)
-    .toConstantValue(
-      new nodeMediaServer(configFactory.create(MediaServerConfig))
-    );
 };
 
 export const getConfigFacotry = (container: Container): ConfigFactory => {

@@ -1,0 +1,6 @@
+{
+  "tempDir": "../temp",
+  "recordsDir": "../replays",
+  "baseUrl": "http://www130.lan",
+  "duration": 10
+}

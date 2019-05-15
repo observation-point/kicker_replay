@@ -2,18 +2,6 @@
 import { Config } from '@framework';
 import { IsNumber, IsString, IsBoolean, IsArray, ValidateNested } from 'class-validator';
 
-class MediaServer extends Config {
-  @ValidateNested()
-  public rtmp!: RTMPConfig;
-  @ValidateNested()
-  public http!: HTTPConfig;
-  @ValidateNested()
-  public trans!: TranscodeConfig;
-  public getName(): string {
-    return 'media-server';
-  }
-}
-
 class RTMPConfig {
   @IsNumber()
   public port!: number;
@@ -43,4 +31,16 @@ class TranscodeConfig {
   public tasks!: any[];
 }
 
-export { MediaServer };
+class MediaServer extends Config {
+  @ValidateNested()
+  public rtmp!: RTMPConfig;
+  @ValidateNested()
+  public http!: HTTPConfig;
+  @ValidateNested()
+  public trans!: TranscodeConfig;
+  public getName(): string {
+    return 'media-server';
+  }
+}
+
+export { MediaServer, RTMPConfig, HTTPConfig, TranscodeConfig };
