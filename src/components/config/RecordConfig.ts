@@ -4,6 +4,14 @@ import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 export class RecordConfig extends Config {
   @IsNotEmpty()
   @IsString()
+  public ffmpegPath!: string;
+  
+  @IsNotEmpty()
+  @IsString()
+  public ffprobePath!: string;
+  
+  @IsNotEmpty()
+  @IsString()
   public tempDir!: string;
 
   @IsNotEmpty()

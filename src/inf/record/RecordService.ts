@@ -17,7 +17,9 @@ class RecordService {
   }
 
   public async replay(gameId: string, goalId: string): Promise<string|never> {
-    this.cmd = ffmpeg();
+    this.cmd = ffmpeg()
+      .setFfmpegPath(this.config.ffmpegPath)
+      .setFfprobePath(this.config.ffprobePath);
     const subDir = await this.createSubDir(gameId);
     // const streamFile = await this.getStreamFile(gameId);
     const fragmentList = await this.getFragmentList(gameId);

@@ -1,0 +1,8 @@
+{
+  "ffmpegPath": "/home/gorod/media-server/ffmpeg/ffmpeg",
+  "ffprobePath": "/home/gorod/media-server/ffmpeg/ffprobe",
+  "tempDir": "/home/gorod/kicker-replay/stream",
+  "recordsDir": "/home/gorod/kicker-replay/replays",
+  "baseUrl": "http://www130.lan",
+  "duration": 10
+}

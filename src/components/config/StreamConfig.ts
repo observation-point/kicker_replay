@@ -9,6 +9,10 @@ export class StreamConfig extends Config {
   @IsNotEmpty()
   @IsString()
   public ffmpegPath!: string;
+  
+  @IsNotEmpty()
+  @IsString()
+  public ffprobePath!: string;
 
   @IsNotEmpty()
   @IsString()

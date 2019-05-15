@@ -1,6 +1,8 @@
 {
-  "tempDir": "/opt/kicker-replay/stream",
-  "recordsDir": "/opt/kicker-replay/replays",
-  "baseUrl": "http://www130.lan",
+  "ffmpegPath": "/usr/local/bin/ffmpeg",
+  "ffprobePath": "/usr/local/bin/ffprobe",
+  "tempDir": "/tmp/gorod/kicker-replay/stream",
+  "recordsDir": "/tmp/kicker-replay/replays",
+  "baseUrl": "http://localhost",
   "duration": 10
 }

@@ -16,7 +16,9 @@ class StreamService {
 
   constructor(config: StreamConfig) {
     this.config = config;
-    this.cmd = this.initFFmpeg();
+    this.cmd = this.initFFmpeg()
+      .setFfmpegPath(this.config.ffmpegPath)
+      .setFfprobePath(this.config.ffprobePath);
   }
 
   public async init(): Promise<StreamService> {
