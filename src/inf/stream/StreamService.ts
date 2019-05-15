@@ -1,6 +1,5 @@
 import * as ffmpeg from 'fluent-ffmpeg';
 import * as fs from 'fs';
-import path from 'path';
 import { check } from 'diskusage';
 
 import { Type } from '@diType';
@@ -16,9 +15,7 @@ class StreamService {
 
   constructor(config: StreamConfig) {
     this.config = config;
-    this.cmd = this.initFFmpeg()
-      .setFfmpegPath(this.config.ffmpegPath)
-      .setFfprobePath(this.config.ffprobePath);
+    this.cmd = this.initFFmpeg();
   }
 
   public async init(): Promise<StreamService> {
@@ -31,7 +28,8 @@ class StreamService {
 
   public async rec(name: string): Promise<string|never> {
     await this.checkFreeSpace();
-    await this.cleanDirectory(this.config.tempDir);
+    this.cleanDirectory(this.config.tempDir);
+
     this.cmd
       .addInput(this.config.streamUrl)
       .addInputOptions([
@@ -82,6 +80,24 @@ class StreamService {
     });
   }
 
+  private cleanDirectory(directory: string): void {
+    fs.readdir(directory, (err, files) => {
+      if (err) {
+        this.logger.error(err);
+      }
+
+      if (files) {        
+        for (const file of files) {
+          fs.unlink(`${directory}/${file}`, (err) => {
+            if (err) {
+              this.logger.error(err);
+            }
+          });
+        }
+      }
+    });
+  }
+
   private async checkFreeSpace(): Promise<void> {
     const { free } = await check(this.config.tempDir);
     const freeSpace = Math.round(free / 1e6);
@@ -93,24 +109,12 @@ class StreamService {
     }
   }
 
-  private cleanDirectory(directory: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      fs.readdir(directory, (err, files) => {
-        if (err) reject(err);
-        for (const file of files) {
-          fs.unlink(path.join(directory, file), (err) => {
-            if (err) reject(err);
-          });
-          resolve();
-        }
-      });
-    });
-  }
-
   private initFFmpeg(): ffmpeg.FfmpegCommand {
     return ffmpeg()
+    .setFfmpegPath(this.config.ffmpegPath)
+    .setFfprobePath(this.config.ffprobePath)
     .on('start', (data: any) => this.logger.info(data))
-    .on('stderr', (data: any) => this.logger.trace(data))
+    .on('stderr', (data: any) => this.logger.debug(data))
     .on('end', () => this.logger.warn('Стрим пропал!'))
     .on('error', (err: Error) => {
       if (!err.message.includes('ffmpeg exited with code 255')) {

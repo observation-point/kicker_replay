@@ -1,6 +1,4 @@
 {
-  "tempDir": "../temp",
-  "recordsDir": "../replays",
-  "baseUrl": "http://www130.lan",
-  "duration": 10
+  "tempDir": "/tmp/kicker",
+  "recordsDir": "/tmp/replays"
 }
