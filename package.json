@@ -14,7 +14,8 @@
     "migration:run": "bin/environment ./node_modules/.bin/typeorm migration:run",
     "migration:undo": "bin/environment ./node_modules/.bin/typeorm migration:revert",
     "migration:create": "bin/environment ./node_modules/.bin/typeorm migration:create -n",
-    "orm-entity:create": "bin/environment ./node_modules/.bin/typeorm entity:create -n"
+    "orm-entity:create": "bin/environment ./node_modules/.bin/typeorm entity:create -n",
+    "deploy": "pm2 deploy ecosystem.json prod"
   },
   "dependencies": {
     "@types/express": "4.16.1",
