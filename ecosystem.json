@@ -22,8 +22,8 @@
       "ssh_options": "StrictHostKeyChecking=no",
       "ref": "origin/master",
       "repo": "git@github.com:observation-point/kicker_replay.git",
-      "path": "/home/gorod/kicker_replay",
-      "pre-setup": "ln -sfn /home/gorod/kicker_replay/current/nginx/kicker-replay-nginx.conf /etc/nginx/sites-enabled/kicker-replay-nginx.conf && sudo service nginx restart",
+      "path": "/home/gorod/kicker-replay",
+      "pre-setup": "ln -sfn /home/gorod/kicker-replay/current/nginx/kicker-replay-nginx.conf /etc/nginx/sites-enabled/kicker-replay-nginx.conf && sudo service nginx restart",
       "post-setup": "echo 'POST SETUP'",
       "pre-deploy-local": "echo 'This is a local executed command'",
       "post-deploy": "yarn && yarn build && yarn migrate && pm2 start ecosystem.json --env prod"
