@@ -1,0 +1,32 @@
+{
+  "apps": [
+    {
+      "name": "KickerReplay",
+      "script": "dist/app.js",
+      "watch": false,
+      "env": {
+        "NODE_ENV": "dev",
+        "KICKER_ENV": "dev"
+      },
+      "env_prod": {
+        "NODE_ENV": "prod",
+        "KICKER_ENV": "prod"
+      }
+    }
+  ],
+  "deploy": {
+    "prod": {
+      "key": "~/.ssh/id_rsa",
+      "user": "gorod",
+      "host": ["www109.lan"],
+      "ssh_options": "StrictHostKeyChecking=no",
+      "ref": "origin/master",
+      "repo": "git@github.com:observation-point/kicker_replay.git",
+      "path": "/home/gorod/kicker_replay",
+      "pre-setup": "ln -sfn /home/gorod/kicker_replay/current/nginx/kicker-replay-nginx.conf /etc/nginx/sites-enabled/kicker-replay-nginx.conf && sudo service nginx restart",
+      "post-setup": "echo 'POST SETUP'",
+      "pre-deploy-local": "echo 'This is a local executed command'",
+      "post-deploy": "yarn && yarn build && yarn migrate && pm2 start ecosystem.json --env prod"
+    }
+  }
+}
