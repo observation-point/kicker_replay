@@ -6,11 +6,11 @@
       "watch": false,
       "env": {
         "NODE_ENV": "dev",
-        "KICKER_ENV": "dev"
+        "KICKER_REPLAY_ENV": "dev"
       },
       "env_prod": {
         "NODE_ENV": "prod",
-        "KICKER_ENV": "prod"
+        "KICKER_REPLAY_ENV": "prod"
       }
     }
   ],
