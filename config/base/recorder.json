@@ -3,7 +3,7 @@
   "ffprobePath": "/opt/ffmpeg/ffprobe",
   "streamDir": "/opt/kicker-replay/stream",
   "replaysDir": "/opt/kicker-replay/replays",
-  "streamUrl": "http://www130.lan:8888/stream",
+  "streamUrl": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov",
   "replayUrl": "http://www130.lan:8888/replay",
   "rtspTransport": "http",
   "checkStream": true,

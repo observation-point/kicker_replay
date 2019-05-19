@@ -1,4 +1,7 @@
 {
-  "tempDir": "/tmp/kicker",
-  "recordsDir": "/tmp/replays"
+  "ffmpegPath": "/usr/local/bin/ffmpeg",
+  "ffprobePath": "/usr/local/bin/ffprobe",
+  "streamDir": "/tmp/kicker",
+  "replaysDir": "/tmp/replays",
+  "checkStream": false
 }
