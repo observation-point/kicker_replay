@@ -1,8 +1,0 @@
-{
-  "ffmpegPath": "/usr/local/bin/ffmpeg",
-  "ffprobePath": "/usr/local/bin/ffprobe",
-  "tempDir": "/tmp/kicker-replay/stream",
-  "streamUrl": "http://demo.devline.ru/cameras/0/streaming/sub.flv?authorization=Basic%20d2ViOg==",
-  "rtspTransport": "http",
-  "checkStream": false
-}

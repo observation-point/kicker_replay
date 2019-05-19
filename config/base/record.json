@@ -1,8 +1,0 @@
-{
-  "ffmpegPath": "/usr/local/bin/ffmpeg",
-  "ffprobePath": "/usr/local/bin/ffprobe",
-  "tempDir": "/tmp/kicker-replay/stream",
-  "recordsDir": "/tmp/kicker-replay/replays",
-  "baseUrl": "http://localhost",
-  "duration": 10
-}

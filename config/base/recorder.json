@@ -1,0 +1,13 @@
+{
+  "ffmpegPath": "/opt/ffmpeg/ffmpeg",
+  "ffprobePath": "/opt/ffmpeg/ffprobe",
+  "streamDir": "/opt/kicker-replay/stream",
+  "replaysDir": "/opt/kicker-replay/replays",
+  "streamUrl": "http://www130.lan:8888/stream",
+  "replayUrl": "http://www130.lan:8888/replay",
+  "rtspTransport": "http",
+  "checkStream": true,
+  "streamDuration": 10,
+  "fragmentDuration": 2,
+  "replayDuration": 5
+}

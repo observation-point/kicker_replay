@@ -4,16 +4,16 @@ import { check } from 'diskusage';
 
 import { Type } from '@diType';
 import { ILogger, di } from '@framework';
-import { StreamConfig } from '@config';
+import { RecorderConfig } from '@config';
 
 class StreamService {
   @di.inject(Type.AppLogger)
   private logger!: ILogger;
 
-  private config: StreamConfig;
+  private config: RecorderConfig;
   private cmd: ffmpeg.FfmpegCommand;
 
-  constructor(config: StreamConfig) {
+  constructor(config: RecorderConfig) {
     this.config = config;
     this.cmd = this.initFFmpeg();
   }
@@ -26,9 +26,9 @@ class StreamService {
     return this;
   }
 
-  public async rec(name: string): Promise<string|never> {
+  public async rec(): Promise<string|never> {
     await this.checkFreeSpace();
-    this.cleanDirectory(this.config.tempDir);
+    this.cleanDirectory(this.config.streamDir);
 
     this.cmd
       .addInput(this.config.streamUrl)
@@ -42,11 +42,11 @@ class StreamService {
         '-vcodec copy',
         '-movflags frag_keyframe+empty_moov',
         '-an',
-        '-hls_time 2',
-        '-hls_list_size 10',
+        `-hls_time ${this.config.fragmentDuration}`,
+        `-hls_list_size ${Math.floor(this.config.streamDuration / this.config.fragmentDuration)}`,
         '-hls_flags delete_segments+append_list+omit_endlist'
       ])
-      .addOutput(`${this.config.tempDir}/${name}.m3u8`)
+      .addOutput(`${this.config.streamDir}/game.m3u8`)
       .outputFormat('hls');
 
     return await new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ class StreamService {
   }
 
   private async checkFreeSpace(): Promise<void> {
-    const { free } = await check(this.config.tempDir);
+    const { free } = await check(this.config.streamDir);
     const freeSpace = Math.round(free / 1e6);
     const freeSpaceMsg = `Freespace: ${freeSpace.toFixed(0)} mb`;
     if (freeSpace > 1e3) {

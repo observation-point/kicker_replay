@@ -14,7 +14,7 @@ class StreamController {
     @BodyParam('gameId') gameId: string
   ): Promise<string> {
     this.logger.info(`Start game recording: ${gameId}`);
-    const result = await this.streamService.rec(gameId);
+    const result = await this.streamService.rec();
     Object.assign(result, { gameId });
     this.logger.warn(result);
     return result;
