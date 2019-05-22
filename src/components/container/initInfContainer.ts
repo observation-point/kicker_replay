@@ -3,12 +3,12 @@ import { Container } from 'inversify';
 import { getConfigFacotry } from '@framework';
 import { RecorderConfig } from '@config';
 
-import { RecordService } from '../../inf/record/RecordService';
-import { StreamService } from '../../inf/stream/StreamService';
+import { RecordService } from '../../inf/RecordService';
+import { StreamService } from '../../inf/StreamService';
 
 export async function initInfContainer(container: Container, _options: { envName: string; }): Promise<void> {
   const configFacotry = getConfigFacotry(container);
-
+ 
   container.bind<RecordService>(Type.RecordService)
     .toConstantValue(new RecordService(configFacotry.create(RecorderConfig)));
 

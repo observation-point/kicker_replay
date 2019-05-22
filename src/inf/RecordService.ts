@@ -7,7 +7,6 @@ import * as fs from 'fs';
 class RecordService {
   @di.inject(Type.AppLogger)
   private logger!: ILogger;
-
   private config: RecorderConfig;
   private cmd!: ffmpeg.FfmpegCommand;
 
@@ -16,6 +15,8 @@ class RecordService {
   }
 
   public async replay(gameId: string, goalId: string): Promise<string|never> {
+    this.logger.info(`Record goal replay: ${gameId}/${goalId}.mp4`);
+
     this.cmd = ffmpeg()
       .setFfmpegPath(this.config.ffmpegPath)
       .setFfprobePath(this.config.ffprobePath);
@@ -25,7 +26,7 @@ class RecordService {
     const concatList = await this.getListToConcat(fragmentList);
 
     if (!concatList) {
-      throw new Error('А ты стрим записал?');
+      throw new Error('Stream is not found');
     }
 
     this.cmd

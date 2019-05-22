@@ -2,7 +2,7 @@ import { JsonController, Post, BodyParam, Delete, OnUndefined } from 'routing-co
 import { di, ILogger } from '@framework';
 import { Type } from '@diType';
 
-import { StreamService } from '../../inf/stream/StreamService';
+import { StreamService } from '../../inf/StreamService';
 
 @JsonController('/api/stream')
 class StreamController {

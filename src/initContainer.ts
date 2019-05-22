@@ -6,6 +6,4 @@ export async function initContainer(): Promise<void> {
 
   await bindMainComponents(di.container, options);
   await initInfContainer(di.container, options);
-  // await initDatabaseContainer(di.container, options);
-
 }

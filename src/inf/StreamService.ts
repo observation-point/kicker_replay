@@ -120,7 +120,10 @@ class StreamService {
     .setFfprobePath(this.config.ffprobePath)
     .on('start', (data: any) => this.logger.info(data))
     .on('stderr', (data: any) => this.logger.debug(data))
-    .on('end', () => this.logger.warn('Стрим пропал!'))
+    .on('end', () => { 
+      this.logger.fatal('Стрим пропал!');
+      process.exit(1);
+    })
     .on('error', (err: Error) => {
       if (!err.message.includes('ffmpeg exited with code 255')) {
         this.logger.fatal(err.message);
