@@ -5,9 +5,9 @@
   "replaysDir": "/opt/kicker-replay/replays",
   "streamUrl": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov",
   "replayUrl": "http://www130.lan/replay",
-  "rtspTransport": "http",
+  "rtspTransport": "tcp",
   "checkStream": true,
-  "streamDuration": 10,
+  "streamDuration": 20,
   "fragmentDuration": 2,
-  "replayDuration": 5
+  "replayDuration": 6
 }

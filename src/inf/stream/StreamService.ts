@@ -19,22 +19,27 @@ class StreamService {
   }
 
   public async init(): Promise<StreamService> {
-    if (this.config.checkStream) {
-      this.logger.info('Check stream from camera ...');
-      await this.checkInputStream(this.config.streamUrl);
+    try {
+      if (this.config.checkStream) {
+        this.logger.info('Check stream from camera ...');
+        await this.checkInputStream(this.config.streamUrl);
+      }
+      await this.checkFreeSpace();
+      this.cleanDirectory(this.config.streamDir);
+      await this.rec();
+    } catch (err) {
+      this.logger.error(err);
     }
     return this;
   }
 
   public async rec(): Promise<string|never> {
-    await this.checkFreeSpace();
-    this.cleanDirectory(this.config.streamDir);
 
     this.cmd
       .addInput(this.config.streamUrl)
       .addInputOptions([
         '-fflags nobuffer',
-        // `-rtsp_transport ${this.config.rtspTransport}`,
+        `-rtsp_transport ${this.config.rtspTransport}`,
       ])
       .addOptions([
         '-vsync 0',
@@ -44,7 +49,7 @@ class StreamService {
         '-an',
         `-hls_time ${this.config.fragmentDuration}`,
         `-hls_list_size ${Math.floor(this.config.streamDuration / this.config.fragmentDuration)}`,
-        '-hls_flags delete_segments+append_list+omit_endlist'
+        '-hls_flags delete_segments+append_list'
       ])
       .addOutput(`${this.config.streamDir}/game.m3u8`)
       .outputFormat('hls');
