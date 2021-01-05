@@ -21,7 +21,7 @@
     "@types/node": "12.0.2",
     "@types/pino": "5.8.7",
     "@types/randomstring": "1.1.6",
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "body-parser": "1.19.0",
     "class-transformer": "0.2.3",
     "diskusage": "1.1.1",
