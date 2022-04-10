@@ -30,7 +30,7 @@
     "fluent-ffmpeg": "2.1.2",
     "inversify": "5.0.1",
     "inversify-inject-decorators": "3.1.0",
-    "minimist": "1.2.0",
+    "minimist": "1.2.6",
     "pino": "5.12.5",
     "randomstring": "1.1.5",
     "reflect-metadata": "0.1.13",
